@@ -2,6 +2,7 @@
     // Enables $_SESSION variable
     session_start();
     include_once '../Modules/utils.php';
+    include_once '../Modules/curl_request.php';
 
     $url = $key = $password = '';
     $errors = ['url'=>'', 'key'=>'', 'password'=>''];
@@ -26,12 +27,23 @@
         } else {
             $password = $_POST['password'];
         }
-        // Input needs to be validated for correctness, run a api request to check.
 
         // Assembles base api url, is appended with specific api call in curl_request.php
         // escapes user input in case of malicious inputs
         $_SESSION['url'] = "https://" . htmlspecialchars($key) . ":" . htmlspecialchars($password) . "@"
         . htmlspecialchars($url) . "/admin/api/2021-04/";
+
+        // Validates that a valid api call is made
+        $get_data = callApi('GET', $_SESSION['url'], false);
+        if (empty($get_data)) {
+            $errors['url'] = "One or more incorrect fields";
+            $errors['key'] = "One or more incorrect fields";
+            $errors['password'] = "One or more incorrect fields";
+            console_log($errors['url']);
+            console_log($errors['key']);
+            console_log($errors['password']);
+            unset($_SESSION['url']);
+        }
 
         // Redirects to index.php if form is successfully submited
         // META tag is for situations where JS is disabled
