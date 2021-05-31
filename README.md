@@ -6,6 +6,10 @@ git clone https://github.com/Troxteam/php_case.git
 cd php_case
 docker compose build
 docker compose start
+```
+
+To stop the container:
+```bash
 docker compose stop
 ```
 
