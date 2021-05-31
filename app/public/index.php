@@ -46,6 +46,7 @@ include_once '../Modules/utils.php';
     </form>
 </section>
 
+<!-- Table html copied from the web -->
 <section class="container">
     <div class="responsive-table table-status-sheet">
     <table class="bordered">

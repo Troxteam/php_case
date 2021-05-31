@@ -26,6 +26,7 @@
         } else {
             $password = $_POST['password'];
         }
+        // Input needs to be validated for correctness, run a api request to check.
 
         // Assembles base api url, is appended with specific api call in curl_request.php
         // escapes user input in case of malicious inputs
